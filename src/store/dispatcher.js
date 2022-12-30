@@ -1,13 +1,20 @@
 function Dispatcher() {
-  const actions = {};
+  this.store = null;
+  this.actions = {};
 
   return {
-    dispatch: (state, action) => {
-      if (actions[action.type]) return actions[action.type](state, action.payload));
-      else return state;
+    dispatch: (action) => {
+      if (!this.store) throw new Error("You have to bound a store to the dispatcher");
+      const actionEffect = this.actions[action.type];
+      if (actionEffect) {
+        this.store.transform(actionEffect, action.payload);
+      }
     },
-    register: (type, handler) => {
-      actions[type] = handler;
+    register: (type, effect) => {
+      this.actions[type] = effect;
+    },
+    linkStore: (store) => {
+      this.store = store;
     },
   };
 }

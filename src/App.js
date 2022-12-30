@@ -1,10 +1,10 @@
 import Todos from "./components/Todos";
 
-function App({ el, store }) {
+function App({ el, store, dispatcher }) {
   function addTask(ev) {
     const value = ev.target.value;
     if (value) {
-      store.dispatch({
+      dispatcher.dispatch({
         type: "ADD_TODO",
         payload: value,
       });
@@ -14,7 +14,7 @@ function App({ el, store }) {
   function dropTask(ev) {
     const el = ev.currentTarget;
     const index = Array.from(el.parentElement.children).indexOf(el);
-    store.dispatch({
+    dispatcher.dispatch({
       type: "DROP_TODO",
       payload: index,
     });
