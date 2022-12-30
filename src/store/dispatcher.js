@@ -3,9 +3,8 @@ function Dispatcher() {
 
   return {
     dispatch: (state, action) => {
-      return new Promise((res) => {
-        if (actions[action.type]) res(actions[action.type](state, action.payload));
-      });
+      if (actions[action.type]) return actions[action.type](state, action.payload));
+      else return state;
     },
     register: (type, handler) => {
       actions[type] = handler;
