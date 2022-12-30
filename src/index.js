@@ -1,6 +1,6 @@
 import App from "./App";
 import Store from "./store";
-import actions from "./store/actions";
+import actions from "./actions";
 import todos from "./data/todos";
 
 const store = Store(todos);
